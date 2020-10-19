@@ -1,11 +1,11 @@
 class Test:
     def __init__(self):
-        self.a=english_tennsuu
-        self.b=math_tennsuu
-        self.t=goukei
-        self.av=heikinn
+        self.a = 0
+        self.b = 0
+        self.t = 0
+        self.av = 0
 
-    def input(self):
+    def score(self):
         self.a = int(input("英語の成績を入力して下さい"))
         self.b = int(input("数学の成績を入力して下さい"))
 
@@ -22,3 +22,10 @@ class Test:
     def ave(self):
         self.av = self.t / 2
         print("平　　　均:" + str(self.av))
+
+test = Test()
+test.score()
+test.english()
+test.math()
+test.sum()
+test.ave()

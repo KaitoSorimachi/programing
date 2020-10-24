@@ -18,7 +18,7 @@ if fetchresult[0] == "5":
     print ("OK")
 else:
     print ("NG")
-sql.execute("update jihann set quontity = '0' where menu = 'コーラ'")
+sql.execute("update jihann set quontity = '5' where menu = 'コーラ'")
 sql.execute("select * from jihann ")
 print(sql.fetchone())
 
@@ -30,9 +30,9 @@ sql.execute("INSERT INTO mydrink VALUES('酒','0')")
 sql.execute("INSERT INTO mydrink VALUES('サイダー','0')")
 sql.execute("INSERT INTO mydrink VALUES('オレンジ','0')")
 """
+#sql.execute("delete from mydrink where buy = 'ぶどう' ")
 sql.execute("select * from mydrink ")
 a = sql.fetchall()
 print(a)
-#sql.execute("delete from jihann ")
 dbfile.commit()
 dbfile.close()

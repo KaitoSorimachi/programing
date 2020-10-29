@@ -22,6 +22,7 @@
 自動販売機の商品を再度表示させ
 終了する場合はそのままプログラムを終了させる
 """
+# -*- coding: utf-8 -*-
 
 import sqlite3
 dbfile = sqlite3.connect("jihann.db")
@@ -35,7 +36,7 @@ menu = {"コーラ": 150, "お茶": 120, "酒": 300, "サイダー": 150, "オ�
 which_while = "which_rr"
 while which_while == "which_rr":
     which = input("メニュー画面\n1.自販機飲み物購入\n2.自販機編集\n3.終了\n操作したい機能番号を入力してください。")
-    if which == "1":
+    if which == "1" or which == "１":
         mo = 33
         while mo == 33:
             import subprocess
@@ -127,57 +128,36 @@ while which_while == "which_rr":
                     subprocess.call('clear')
                     print ("YesかNo以外が入力されています。")
 
-    elif which == "2":
+    elif which == "2" or which == "２":
         import subprocess
         subprocess.call('clear')
         which2_while = "which2_rr"
         while which2_while == "which2_rr":
             which2 = input("自販機編集メニュー\n1.飲み物個数追加\n2,飲み物種類追加\n3.飲み物種類削除\n操作したい機能番号を入力してください。")
-            if which2 == "1":
+            if which2 == "1" or which2 == "１":
                 import subprocess
                 subprocess.call('clear')
-                sql.execute("select * from jihann ")
-                print(sql.fetchall())
                 TE = "te"
                 while TE == "te":
-                    try:
-                        quan1 = int(input("コーラはいくつ仕入れますか？"))
-                        TE = "teok"
-                    except ValueError:
-                        print ("数値以外が入力されています。")
-                TE2 = "te2"
-                while TE2 == "te2":
-                    try:
-                        quan2 = int(input("お茶はいくつ仕入れますか？"))
-                        TE2 = "teok2"
-                    except ValueError:
-                        print ("数値以外が入力されています。")
-                TE3 = "te3"
-                while TE3 == "te3":
-                    try:
-                        quan3 = int(input("酒はいくつ仕入れますか？"))
-                        TE3 = "teok3"
-                    except ValueError:
-                        print ("数値以外が入力されています。")
-                TE4 = "te4"
-                while TE4 == "te4":
-                    try:
-                        quan4 = int(input("サイダーはいくつ仕入れますか？"))
-                        TE4 = "teok4"
-                    except ValueError:
-                        print ("数値以外が入力されています。")
-                TE5 = "te5"
-                while TE5 == "te5":
-                    try:
-                        quan5 = int(input("オレンジはいくつ仕入れますか？"))
-                        TE5 = "teok5"
-                    except ValueError:
-                        print ("数値以外が入力されています。")
-                sql.execute("update jihann set quontity = ? where menu = 'コーラ' ", (quan1,))
-                sql.execute("update jihann set quontity = ? where menu = 'お茶' ", (quan2,))
-                sql.execute("update jihann set quontity = ? where menu = '酒' ", (quan3,))
-                sql.execute("update jihann set quontity = ? where menu = 'サイダー' ", (quan4,))
-                sql.execute("update jihann set quontity = ? where menu = 'オレンジ' ", (quan5,))
+                    sql.execute("select * from jihann ")
+                    print(sql.fetchall())
+                    quan1 = input("何を仕入れますか？")
+                    if quan1 in menu:
+                        TE2 = "te2"
+                        while TE2 == "te2":
+                            try:
+                                quan2 = int(input("いくつ仕入れますか？"))
+                                TE2 = "teok2"
+                                TE = "teok"
+                            except ValueError:
+                                print ("数値以外が入力されています。")
+
+                    else:
+                        import subprocess
+                        subprocess.call('clear')
+                        print ("メニューにございません。")
+
+                sql.execute("update jihann set quontity = ? where menu = ? ", (quan2, quan1, ))
                 sql.execute("select * from jihann ")
                 print(sql.fetchall())
                 YesorNo_con = "YN"
@@ -199,7 +179,7 @@ while which_while == "which_rr":
                         subprocess.call('clear')
                         print ("YesかNo以外が入力されています。")
 
-            elif which2 == "2":
+            elif which2 == "2" or which2 == "２":
                 import subprocess
                 subprocess.call('clear')
                 a = input("何を追加しますか？")
@@ -213,6 +193,8 @@ while which_while == "which_rr":
                         print ("数値以外が入力されています。")
                 sql.execute("INSERT INTO jihann VALUES(?,?)", (a, inquon))
                 sql.execute("INSERT INTO mydrink VALUES(?,'0')", (a,))
+                sql.execute("select * from jihann ")
+                print(sql.fetchall())
                 YesorNo_con2 = "YN2"
                 while YesorNo_con2 == "YN2":
                     YesorNo2 = input("自販機編集を続けますか？Yes or No")
@@ -232,7 +214,7 @@ while which_while == "which_rr":
                         subprocess.call('clear')
                         print ("YesかNo以外が入力されています。")
 
-            elif which2 == "3":
+            elif which2 == "3" or which2 == "３":
                 import subprocess
                 subprocess.call('clear')
                 Del = "del"
@@ -243,7 +225,8 @@ while which_while == "which_rr":
                         sql.execute("delete from jihann where menu = ?", (disposal,))
                         sql.execute("delete from mydrink where buy = ?", (disposal,))
                         del menu[disposal]
-                        print (menu)
+                        sql.execute("select * from jihann ")
+                        print(sql.fetchall())
                         YesorNo_con3 = "YN3"
                         while YesorNo_con3 == "YN3":
                             YesorNo3 = input("自販機編集を続けますか？Yes or No")
@@ -273,7 +256,7 @@ while which_while == "which_rr":
             else:
                 print ("機能番号以外が入力されています。")
 
-    elif which == "3":
+    elif which == "3" or which == "３":
         dbfile.commit()
         dbfile.close()
         import sys
@@ -283,7 +266,6 @@ while which_while == "which_rr":
         import subprocess
         subprocess.call('clear')
         print ("機能番号以外が入力されています。")
-
 
 
 

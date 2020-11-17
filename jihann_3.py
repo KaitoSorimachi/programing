@@ -124,8 +124,9 @@ class Ver_3():
                 print ("YesかNo以外が入力されています。")
 
 ver_3 = Ver_3()
-ver_3.choice_2()
-ver_3.which2_1()
-ver_3.which2_2()
-ver_3.which2_3()
-ver_3.yesorno()
+while True:
+    ver_3.choice_2()
+    ver_3.which2_1()
+    ver_3.which2_2()
+    ver_3.which2_3()
+    ver_3.yesorno()

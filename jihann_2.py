@@ -110,9 +110,7 @@ class Ver_2():
                 import subprocess
                 subprocess.call('clear')
                 endflag = 55
-                imp = "forever"
-                while imp == "forever":
-                    from jihann_1 import Ver_1
+                from jihann_1 import Ver_1
 
             else:
                 import subprocess

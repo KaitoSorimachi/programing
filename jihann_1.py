@@ -15,14 +15,10 @@ class Ver_1():
             try:
                 self.which = int(input("メニュー画面\n1.自販機飲み物購入\n2.自販機編集\n3.終了\n操作したい機能番号を入力してください。"))
                 if self.which == 1:
-                    imp = "forever"
-                    while imp == "forever":
-                        from jihann_2 import Ver_2
+                    from jihann_2 import Ver_2
 
                 elif self.which == 2:
-                    imp = "forever"
-                    while imp == "forever":
-                        from jihann_3 import Ver_3
+                    from jihann_3 import Ver_3
 
                 elif self.which == 3:
                     dbfile.commit()

@@ -109,9 +109,7 @@ class Ver_3():
                 import subprocess
                 subprocess.call('clear')
                 YesorNo_con = "YN_end"
-                imp = "forever"
-                while imp == "forever":
-                    from jihann_1 import Ver_1
+                from jihann_1 import Ver_1
 
             elif self.YesorNo == "Yes":
                 import subprocess

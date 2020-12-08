@@ -4,8 +4,6 @@ sql = dbfile.cursor()
 
 menu = {"コーラ": 150, "お茶": 120, "酒": 300, "サイダー": 150, "オレンジ": 200}
 
-from jihann_1 import Ver_1
-
 class Ver_3():
     def __init__(self):
         self.which2 = ""

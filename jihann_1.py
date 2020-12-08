@@ -31,9 +31,10 @@ class Ver_1():
                     ver_3 = Ver_3()
                     while True:
                         ver_3.choice_2()
-                        if ver_3.choice_2() == 1:
+                        re = ver_3.choice_2()
+                        if re == 1:
                             ver_3.which2_1()
-                        elif ver_3.choice_2() == 2:
+                        elif re == 2:
                             ver_3.which2_2()
                         else:
                             ver_3.which2_3()

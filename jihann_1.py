@@ -5,6 +5,9 @@ import sqlite3
 dbfile = sqlite3.connect("jihann.db")
 sql = dbfile.cursor()
 
+from jihann_2 import Ver_2
+from jihann_3 import Ver_3
+
 class Ver_1():
     def __init__(self):
         self.which = 0
@@ -13,14 +16,31 @@ class Ver_1():
         which_while = "which_rr"
         while which_while == "which_rr":
             try:
+                # メニュー画面
                 self.which = int(input("メニュー画面\n1.自販機飲み物購入\n2.自販機編集\n3.終了\n操作したい機能番号を入力してください。"))
                 if self.which == 1:
-                    from jihann_2 import Ver_2
+                    # 自販機飲み物購入jihann_2へ
+                    ver_2 = Ver_2()
+                    while True:
+                        ver_2.in_menu()
+                        ver_2.sold()
+                        ver_2.to_continue()
 
                 elif self.which == 2:
-                    from jihann_3 import Ver_3
+                    # 自販機編集jihann_3へ
+                    ver_3 = Ver_3()
+                    while True:
+                        ver_3.choice_2()
+                        if ver_3.choice_2() == 1:
+                            ver_3.which2_1()
+                        elif ver_3.choice_2() == 2:
+                            ver_3.which2_2()
+                        else:
+                            ver_3.which2_3()
+                        ver_3.yesorno()
 
                 elif self.which == 3:
+                    # 終了
                     dbfile.commit()
                     dbfile.close()
                     import sys

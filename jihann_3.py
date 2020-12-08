@@ -4,6 +4,8 @@ sql = dbfile.cursor()
 
 menu = {"コーラ": 150, "お茶": 120, "酒": 300, "サイダー": 150, "オレンジ": 200}
 
+from jihann_1 import Ver_1
+
 class Ver_3():
     def __init__(self):
         self.which2 = ""
@@ -21,15 +23,20 @@ class Ver_3():
         which2_while = "which2_rr"
         while which2_while == "which2_rr":
             try:
+                # 自販機編集メニュー
                 self.which2 = int(input("自販機編集メニュー\n1.飲み物個数追加\n2,飲み物種類追加\n3.飲み物種類削除\n操作したい機能番号を入力してください。"))
                 if self.which2 == 1 or self.which2 == 2 or self.which2 == 3:
                     which2_while = "which2_oo"
+                    return self.which2
                 else:
+                    # 機能番号以外が入力されている
                     print ("機能番号以外が入力されています。")
             except ValueError:
+                # 機能番号以外が入力されている
                 print ("機能番号以外が入力されています。")
 
     def which2_1(self):
+        # 飲み物個数追加
         if self.which2 == 1:
             import subprocess
             subprocess.call('clear')
@@ -61,6 +68,7 @@ class Ver_3():
             print(sql.fetchall())
 
     def which2_2(self):
+        # 飲み物種類追加
         if self.which2 == 2:
             import subprocess
             subprocess.call('clear')
@@ -79,6 +87,7 @@ class Ver_3():
             print(sql.fetchall())
 
     def which2_3(self):
+        # 飲み物種類削除
         if self.which2 == 3:
             import subprocess
             subprocess.call('clear')
@@ -100,18 +109,21 @@ class Ver_3():
                     print ("メニューにございません。")
 
     def yesorno(self):
+        # 自販機編集を続けるかどうか
         YesorNo_con = "YN"
         while YesorNo_con == "YN":
             self.YesorNo = input("自販機編集を続けますか？Yes or No")
             if self.YesorNo == "No":
+                # 続けないjihann_1へ
                 dbfile.commit()
-                dbfile.close()
                 import subprocess
                 subprocess.call('clear')
                 YesorNo_con = "YN_end"
-                from jihann_1 import Ver_1
+                ver_1 = Ver_1()
+                ver_1.choice()
 
             elif self.YesorNo == "Yes":
+                # 続ける(繰り返し)
                 import subprocess
                 subprocess.call('clear')
                 YesorNo_con = "YN_end"
@@ -121,10 +133,3 @@ class Ver_3():
                 subprocess.call('clear')
                 print ("YesかNo以外が入力されています。")
 
-ver_3 = Ver_3()
-while True:
-    ver_3.choice_2()
-    ver_3.which2_1()
-    ver_3.which2_2()
-    ver_3.which2_3()
-    ver_3.yesorno()

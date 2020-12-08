@@ -4,6 +4,8 @@ sql = dbfile.cursor()
 
 menu = {"コーラ": 150, "お茶": 120, "酒": 300, "サイダー": 150, "オレンジ": 200}
 
+from jihann_1 import Ver_1
+
 class Ver_2():
     def __init__(self):
         self.a = ""
@@ -21,6 +23,7 @@ class Ver_2():
         self.upquon2 = 0
 
     def in_menu(self):
+        # 購入品を選ぶ
         while True:
             import subprocess
             subprocess.call('clear')
@@ -30,9 +33,11 @@ class Ver_2():
                 sql.execute("select quontity from jihann where menu = ? ", (self.a,))
                 self.fetchresult = sql.fetchone()
                 if self.fetchresult[0] == "0":
+                    # 売り切れ
                     print ("売り切れです")
 
                 else:
+                    # お金を請求
                     end2 = 1
                     while end2 == 1:
                         try:
@@ -45,16 +50,19 @@ class Ver_2():
                     break
 
             else:
+                # 該当商品がない
                 import subprocess
                 subprocess.call('clear')
                 print ("該当商品がありません。")
 
     def sold(self):
+        # お買い上げ
         if self.d >= 0:
             import subprocess
             subprocess.call('clear')
             print (str(self.a) + "をお買い上げしました。")
             print ("お釣りは" + str(self.d) + "円です。")
+            # 購入個数
             self.upquon = int(self.fetchresult[0]) - 1
             sql.execute("update jihann set quontity = ? where menu = ?", (self.upquon, self.a,))
             sql.execute("select quontity from mydrink where buy = ?", (self.a,))
@@ -64,6 +72,7 @@ class Ver_2():
             print ("{}の購入数これで{}個目です".format(self.a, self.upquon2))
 
         else:
+            # お金が足りない
             print ("投入金額が不足しています。")
             self.e = self.c - self.b
             print (str(self.e) + "円足りません。")
@@ -80,10 +89,12 @@ class Ver_2():
                 self.h = self.b - self.c
                 self.i = self.c - self.b
                 if self.h >= 0:
+                    # お買い上げ
                     import subprocess
                     subprocess.call('clear')
                     print (str(self.a) + "をお買い上げしました。")
                     print ("お釣りは" + str(self.h) + "円です。")
+                    # 購入個数
                     self.upquon = int(self.fetchresult[0]) - 1
                     sql.execute("update jihann set quontity = ? where menu = ?", (self.upquon, self.a,))
                     sql.execute("select quontity from mydrink where buy = ?", (self.a,))
@@ -94,31 +105,29 @@ class Ver_2():
                     sad = "ryo"
 
                 else:
+                    # お金が足りない
                     print("投入金額が不足しています。")
                     print (str(self.i) + "円足りません。")
 
     def to_continue(self):
+        # 購入を続けるかどうか
         endflag = "owari"
         while endflag == "owari":
             self.x = input("購入を続けますか？Yes or No")
             if self.x == "Yes":
+                # 続ける(繰り返し)
                 endflag = 55
 
             elif self.x == "No":
+                # 続けないjihann_1へ
                 dbfile.commit()
-                dbfile.close()
                 import subprocess
                 subprocess.call('clear')
                 endflag = 55
-                from jihann_1 import Ver_1
+                ver_1 = Ver_1()
+                ver_1.choice()
 
             else:
                 import subprocess
                 subprocess.call('clear')
                 print ("YesかNo以外が入力されています。")
-
-ver_2 = Ver_2()
-while True:
-    ver_2.in_menu()
-    ver_2.sold()
-    ver_2.to_continue()
